@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js b/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js
+index 6bd2025..6b64e0c 100644
+--- a/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js
++++ b/node_modules/react-native/Libraries/vendor/emitter/EventEmitter.js
+@@ -109,7 +109,7 @@ export default class EventEmitter<TEventToArgsMap: {...}>
+       Registration<$ElementType<TEventToArgsMap, TEvent>>,
+     > = this._registry[eventType];
+     if (registrations != null) {
+-      for (const registration of [...registrations]) {
++      for (const registration of registrations) {
+         registration.listener.apply(registration.context, args);
+       }
+     }

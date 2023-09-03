@@ -1,0 +1,53 @@
+diff --git a/node_modules/expo-ads-admob/android/build.gradle b/node_modules/expo-ads-admob/android/build.gradle
+index d1f33ca..354d9ce 100644
+--- a/node_modules/expo-ads-admob/android/build.gradle
++++ b/node_modules/expo-ads-admob/android/build.gradle
+@@ -35,19 +35,11 @@ buildscript {
+   }
+ }
+ 
+-// Creating sources with comments
+-task androidSourcesJar(type: Jar) {
+-  classifier = 'sources'
+-  from android.sourceSets.main.java.srcDirs
+-}
+-
+ afterEvaluate {
+   publishing {
+     publications {
+       release(MavenPublication) {
+         from components.release
+-        // Add additional sourcesJar to artifacts
+-        artifact(androidSourcesJar)
+       }
+     }
+     repositories {
+@@ -59,6 +51,7 @@ afterEvaluate {
+ }
+ 
+ android {
++  namespace = "expo.modules.ads.admob"
+   compileSdkVersion safeExtGet("compileSdkVersion", 31)
+ 
+   compileOptions {
+@@ -79,6 +72,11 @@ android {
+   lintOptions {
+     abortOnError false
+   }
++  publishing {
++    singleVariant("release") {
++      withSourcesJar()
++    }
++  }
+ }
+ 
+ dependencies {
+diff --git a/node_modules/expo-ads-admob/android/src/main/AndroidManifest.xml b/node_modules/expo-ads-admob/android/src/main/AndroidManifest.xml
+index 6481488..f79cac1 100644
+--- a/node_modules/expo-ads-admob/android/src/main/AndroidManifest.xml
++++ b/node_modules/expo-ads-admob/android/src/main/AndroidManifest.xml
+@@ -1,3 +1,3 @@
+-<manifest package="expo.modules.ads.admob" xmlns:android="http://schemas.android.com/apk/res/android">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+   <uses-permission android:name="android.permission.INTERNET" />
+ </manifest>
